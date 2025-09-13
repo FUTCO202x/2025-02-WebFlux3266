@@ -13,9 +13,9 @@ electronico.
 
 Realizar un Menu con las siguientes opciones:
 
-1. Insertar Estudiante
-2. Actualizar Estudiante (solo se puede actualizar nombre, apellido, edad y estado civil)
-3. Eliminar Estudiante
+1. Insertar model.Estudiante
+2. Actualizar model.Estudiante (solo se puede actualizar nombre, apellido, edad y estado civil)
+3. Eliminar model.Estudiante
 4. Consultar todos los estudiantes (imprimir todos los campos)
-5. Consultar Estudiante por email
+5. Consultar model.Estudiante por email
 6. Salir del programa
