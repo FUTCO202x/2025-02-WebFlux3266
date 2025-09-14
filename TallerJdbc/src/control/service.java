@@ -1,9 +1,7 @@
 package control;
 
 import model.Estudiante;
-
 import java.sql.*;
-import java.util.List;
 
 public class service implements CrudMethods {
 
@@ -22,7 +20,6 @@ public class service implements CrudMethods {
         }
     }
 
-
     @Override
     public void agregarEstudiante(Estudiante estudiante)  {
         String peticion = "INSERT INTO Estudiantes (nombre,apellido,correo,edad,estado_civil) VALUES (?,?,?,?,?);";
@@ -37,6 +34,7 @@ public class service implements CrudMethods {
             pre.executeUpdate();
 
             System.out.println("Estudiante agregado.");
+
         } catch (SQLException e) {
             System.out.println("No se puede escribir en la base de datos.");
             e.printStackTrace();
@@ -51,11 +49,11 @@ public class service implements CrudMethods {
             pre.setInt(1,id);
             pre.executeUpdate();
             System.out.println("Eliminado con exito");
+
         } catch (SQLException e){
             System.out.println("No se puede leer en la base de datos.");
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -83,7 +81,6 @@ public class service implements CrudMethods {
                 System.out.println(" |  " + id + " | " + nombre + " | " + apellido + "  | " + correo + " |   " + edad + " | " + estadoCivil + "      | ");
             }
             System.out.println("+----+--------+----------+----------+------+--------------+");
-
         } catch (SQLException e) {
             System.out.println("No se puede leer en la base de datos.");
             e.printStackTrace();
@@ -94,15 +91,13 @@ public class service implements CrudMethods {
     @Override
     public void editarEstudiante(int id,String nombre,String apellido,String correo,int edad,String estadoCivil) {
         String peticion = """
-                
                 UPDATE nombre_tabla
                 SET nombre = ?,
                     apellido = ?,
                     correo = ?,
                     edad = ?,
                     estado_civil = ?
-                WHERE id = ?;
-        
+                WHERE id = ?;      
                 """;
         try (PreparedStatement pre = connection.prepareStatement(peticion)){
 
@@ -117,6 +112,5 @@ public class service implements CrudMethods {
             System.out.println("No se puede sobrescribir en la base de datos.");
             e.printStackTrace();
         }
-
     }
 }
