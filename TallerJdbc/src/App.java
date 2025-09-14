@@ -1,14 +1,10 @@
-import com.mysql.cj.jdbc.ConnectionImpl;
 import control.service;
 import model.EstadosCiviles;
 import model.Estudiante;
 
-import java.sql.Connection;
 import java.util.Scanner;
 
 public class App {
-
-
     public static void main(String[] args) throws Exception {
         Scanner entrada = new Scanner(System.in);
         service serv = new service();
@@ -85,7 +81,6 @@ public class App {
                 case 5:
                     break;
                 default:
-
             }
             break;
         }
