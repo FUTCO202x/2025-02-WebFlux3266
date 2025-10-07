@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Gestión de Usuarios</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>🚀 UserManager</h2>
+            </div>
+            <nav class="nav">
+                <a href="#crear" class="nav-item active" onclick="showSection('crear')">
+                    <span>👤 Crear Usuario</span>
+                </a>
+                <a href="#listar" class="nav-item" onclick="showSection('listar')">
+                    <span>📋 Listar Usuarios</span>
+                </a>
+                <a href="#buscar" class="nav-item" onclick="showSection('buscar')">
+                    <span>🔍 Buscar por ID</span>
+                </a>
+                <a href="#parametros" class="nav-item" onclick="showSection('parametros')">
+                    <span>🌐 Parámetros URL</span>
+                </a>
+            </nav>
+            <div class="status">
+                <div class="status-item">
+                    <span class="status-label">Servidor:</span>
+                    <span class="status-value" id="serverStatus">Desconectado</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h1>Dashboard de Usuarios</h1>
+                <button class="btn-refresh" onclick="checkServerStatus()">
+                    🔄 Verificar Estado
+                </button>
+            </header>
+
+            <div class="content">
+                <!-- Sección Crear Usuario -->
+                <section id="crear" class="section active">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>👤 Crear Nuevo Usuario</h2>
+                        </div>
+                        <div class="card-body">
+                            <form id="createUserForm" class="form">
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="nombre">Nombre</label>
+                                        <input type="text" id="nombre" placeholder="Ingrese el nombre" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="apellido">Apellido</label>
+                                        <input type="text" id="apellido" placeholder="Ingrese el apellido" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" id="email" placeholder="Ingrese el email" required>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn-primary">
+                                    ➕ Crear Usuario
+                                </button>
+                            </form>
+                            <div id="createResult" class="result-card"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Sección Listar Usuarios -->
+                <section id="listar" class="section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>📋 Lista de Usuarios</h2>
+                            <button onclick="getAllUsers()" class="btn-secondary">
+                                📥 Actualizar Lista
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div id="allUsersResult" class="users-grid"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Sección Buscar por ID -->
+                <section id="buscar" class="section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>🔍 Buscar Usuario por ID</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="search-form">
+                                <div class="form-group">
+                                    <label for="userId">ID del Usuario</label>
+                                    <input type="number" id="userId" placeholder="Ingrese el ID" min="1">
+                                </div>
+                                <button onclick="getUserById()" class="btn-primary">
+                                    🔍 Buscar Usuario
+                                </button>
+                            </div>
+                            <div id="userByIdResult" class="result-card"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Sección Parámetros URL -->
+                <section id="parametros" class="section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>🌐 Parámetros en URL</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="paramNombre">Nombre</label>
+                                    <input type="text" id="paramNombre" placeholder="Ingrese nombre">
+                                </div>
+                                <div class="form-group">
+                                    <label for="paramApellido">Apellido</label>
+                                    <input type="text" id="paramApellido" placeholder="Ingrese apellido">
+                                </div>
+                            </div>
+                            <button onclick="getParams()" class="btn-primary">
+                                🌐 Procesar Parámetros
+                            </button>
+                            <div id="paramsResult" class="result-card"></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
