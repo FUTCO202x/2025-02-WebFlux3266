@@ -3,6 +3,7 @@ package com.comfe.tallerElectiva.controller;
 import com.comfe.tallerElectiva.model.Usuario;
 import com.comfe.tallerElectiva.dtos.UsuarioDTO;
 import com.comfe.tallerElectiva.service.UsuarioService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,24 +19,32 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public List<Usuario> obtenerTodos() {
-        return usuarioService.obtenerTodos();
+    public ResponseEntity<List<Usuario>> obtenerTodos() {
+        List<Usuario> usuarios = usuarioService.obtenerTodos();
+        return ResponseEntity.ok(usuarios);
     }
 
     @PostMapping
-    public Usuario crearUsuario(@RequestBody Usuario usuario) {
-        return usuarioService.crearUsuario(usuario);
+    public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario usuario) {
+        Usuario creado = usuarioService.crearUsuario(usuario);
+        return ResponseEntity.ok(creado);
     }
 
     @GetMapping("/{id}")
-    public Usuario obtenerPorId(@PathVariable Long id) {
-        return usuarioService.obtenerPorId(id).orElse(null);
+    public ResponseEntity<Usuario> obtenerPorId(@PathVariable Long id) {
+        return usuarioService.obtenerPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/buscar")
-    public UsuarioDTO buscarPorParams(@RequestParam String nombre,
-                                       @RequestParam String apellido) {
-        return usuarioService.buscarPorParams(nombre.toLowerCase(), apellido.toLowerCase());
+    public ResponseEntity<UsuarioDTO> buscarPorParams(@RequestParam String nombre,
+                                                      @RequestParam String apellido) {
+        UsuarioDTO resultado = usuarioService.buscarPorParams(nombre.toLowerCase(), apellido.toLowerCase());
+        if (resultado != null) {
+            return ResponseEntity.ok(resultado);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
-
 }
