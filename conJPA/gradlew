@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Minimal launcher: will try to run gradle if available
+if command -v gradle >/dev/null 2>&1; then
+  gradle "$@"
+else
+  echo "Gradle not found on PATH. Install Gradle or run with a local gradle wrapper."
+  exit 1
+fi
