@@ -1,13 +1,13 @@
-package com.parcial.dos.parcialdos;
+package com.security.security_inicio;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ParcialdosApplication {
+public class SecurityInicioApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ParcialdosApplication.class, args);
+		SpringApplication.run(SecurityInicioApplication.class, args);
 	}
 
 }

@@ -1,10 +1,10 @@
-package com.parcial.dos.parcialdos;
+package com.security.security_inicio;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ParcialdosApplicationTests {
+class SecurityInicioApplicationTests {
 
 	@Test
 	void contextLoads() {
