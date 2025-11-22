@@ -19,38 +19,23 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 public class SecurityConfig {
+
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrfConfig -> csrfConfig.disable())
-                .sessionManagement(
-                        sessionConfig -> sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS))// no crea
-                                                                                                              // la
-                                                                                                              // cookie
-                                                                                                              // JSESSIONID
+                .sessionManagement(sessionConfig ->
+                        sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterAfter(new JWTTokenGeneratorFilter(), BasicAuthenticationFilter.class)
                 .addFilterBefore(new JWTTokenValidatorFilter(), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/myAccount", "/myBalance", "/myLoans", "/myCards","/user").authenticated()
-                        .requestMatchers("/notices", "/contact", "/error", "/register", "/apiLogin").permitAll());
+                        .requestMatchers("/myAccount", "/myBalance", "/myLoans", "/myCards", "/user", "/carrito/**").authenticated()
+                        .requestMatchers("/notices", "/contact", "/error", "/register", "/apiLogin", "/productos", "/comentarios").permitAll()
+                );
         http.formLogin(withDefaults());
         http.httpBasic(withDefaults());
         return http.build();
     }
-
-    // @Bean
-    // public UserDetailsService userDetailsService(){
-    // UserDetails user=
-    // User.withUsername("user").password("{noop}12345").authorities("read").build();
-    // UserDetails admin=
-    // User.withUsername("admin").password("{bcrypt}$2y$10$W3Pe.Zbb2PcINe2x.Miz7.bFXXETeSCzllIeoTdUZaI4xStGkJBqq").authorities("admin").build();
-    // return new InMemoryUserDetailsManager(user,admin);
-    //
-    // }
-
-    // @Bean
-    // public UserDetailsService userDetailsService(DataSource dataSource) {
-    // return new JdbcUserDetailsManager(dataSource);
-    // }
+    
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -59,9 +44,9 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationManager authenticationManager(UserDetailsService userDetailsService,
-            PasswordEncoder passwordEncoder) {
-        EazyBankUsernamePwdAuthenticationProvider authenticationProvider = new EazyBankUsernamePwdAuthenticationProvider(
-                userDetailsService);
+                                                       PasswordEncoder passwordEncoder) {
+        EazyBankUsernamePwdAuthenticationProvider authenticationProvider =
+                new EazyBankUsernamePwdAuthenticationProvider(userDetailsService);
         ProviderManager providerManager = new ProviderManager(authenticationProvider);
         providerManager.setEraseCredentialsAfterAuthentication(false);
         return providerManager;
